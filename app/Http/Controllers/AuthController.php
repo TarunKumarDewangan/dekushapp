@@ -26,7 +26,7 @@ class AuthController extends Controller
             'phone' => $request->phone,
             'password' => Hash::make($request->password),
             'role' => $request->role,
-            'is_approved' => in_array($request->role, ['User', 'Admin']),
+            'is_approved' => true,
         ]);
 
         $token = $user->createToken('auth_token')->plainTextToken;

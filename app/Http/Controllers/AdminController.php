@@ -14,7 +14,7 @@ class AdminController extends Controller
     public function pendingUsers()
     {
         $users = User::where('is_approved', false)
-            ->whereIn('role', ['ShopOwner', 'Provider'])
+            ->where('role', '!=', 'User')
             ->get();
         return response()->json($users);
     }
@@ -58,7 +58,7 @@ class AdminController extends Controller
     public function stats()
     {
         return response()->json([
-            'users_pending' => User::where('is_approved', false)->whereIn('role', ['ShopOwner', 'Provider'])->count(),
+            'users_pending' => User::where('is_approved', false)->where('role', '!=', 'User')->count(),
             'shops_pending' => Shop::where('is_approved', false)->count(),
             'services_pending' => Service::where('is_approved', false)->count(),
             'total_users' => User::count(),
