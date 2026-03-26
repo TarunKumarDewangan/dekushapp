@@ -39,8 +39,11 @@ Route::get('/helplines', [HelplineController::class, 'index']);
 Route::get('/blood-banks', [BloodBankController::class, 'index']);
 
 
+Route::get('/shops', [ShopController::class, 'index']);
 Route::get('/shops/{shop}', [ShopController::class, 'show']);
 Route::get('/shops/{shop}/products', [ShopController::class, 'products']);
+
+Route::get('/services', [ServiceController::class, 'index']);
 
 Route::get('/products', [ProductController::class, 'index']);
 Route::get('/products/{product}', [ProductController::class, 'show']);
@@ -67,7 +70,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/ambulances/{ambulance}', [AmbulanceController::class, 'destroy']);
 
     // Shop Management
-    Route::get('/shops', [ShopController::class, 'index']);
     Route::get('/my-shops', [ShopController::class, 'myShops']);
     Route::post('/shops', [ShopController::class, 'store']);
     Route::put('/shops/{shop}', [ShopController::class, 'update']);
@@ -83,7 +85,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('city-issues', CityIssueController::class);
 
     // Service Management for Providers
-    Route::get('/services', [ServiceController::class, 'index']);
     Route::get('/my-services', [ServiceController::class, 'myServices']);
     Route::post('/services', [ServiceController::class, 'store']);
     Route::put('/services/{service}', [ServiceController::class, 'update']);
