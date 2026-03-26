@@ -65,6 +65,8 @@ class DatabaseSeeder extends Seeder
             ShopSeeder::class,
             ServiceSeeder::class,
             CityIssueSeeder::class,
+            BloodBankSeeder::class,
+            HelplineSeeder::class,
         ]);
     }
 }
