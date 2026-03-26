@@ -9,18 +9,7 @@ class ServiceController extends Controller
 {
     public function index(Request $request)
     {
-        $userId = $request->user()?->id;
-        // Only show services from approved providers that are marked as available AND approved themselves
-        // OR if the current user is the provider
-        return Service::where(function($query) use ($userId) {
-            $query->where('is_approved', true);
-            if ($userId) {
-                $query->orWhere('provider_id', $userId);
-            }
-        })
-        ->whereHas('provider', function($query) {
-            $query->where('is_approved', true);
-        })->where('is_available', true)->get();
+        return Service::all();
     }
 
     public function myServices(Request $request)

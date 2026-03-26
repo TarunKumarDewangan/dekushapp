@@ -9,13 +9,7 @@ class ShopController extends Controller
 {
     public function index(Request $request)
     {
-        $userId = $request->user()?->id;
-        return Shop::where(function($query) use ($userId) {
-            $query->where('is_approved', true);
-            if ($userId) {
-                $query->orWhere('owner_id', $userId);
-            }
-        })->get();
+        return Shop::all();
     }
 
     public function myShops(Request $request)
