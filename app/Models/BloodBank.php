@@ -9,5 +9,10 @@ class BloodBank extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'address', 'contact', 'blood_groups_available'];
+    protected $fillable = ['name', 'address', 'contact', 'blood_groups_available', 'user_id'];
+
+    public function manager()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

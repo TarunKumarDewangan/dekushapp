@@ -105,5 +105,10 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/approve-shop/{id}', [AdminController::class, 'approveShop']);
         Route::get('/pending-services', [AdminController::class, 'pendingServices']);
         Route::post('/approve-service/{id}', [AdminController::class, 'approveService']);
+        Route::post('/create-blood-bank', [AdminController::class, 'createBloodBankProvider']);
     });
+
+    // Blood Bank Management for Providers
+    Route::get('/my-blood-bank', [BloodBankController::class, 'myBloodBank']);
+    Route::put('/blood-banks/{id}', [BloodBankController::class, 'update']);
 });
