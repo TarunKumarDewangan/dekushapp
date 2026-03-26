@@ -9,10 +9,11 @@ class ServiceController extends Controller
 {
     public function index()
     {
-        // Only show services from approved providers that are marked as available
-        return Service::whereHas('provider', function($query) {
-            $query->where('is_approved', true);
-        })->where('is_available', true)->get();
+        // Only show services from approved providers that are marked as available AND approved themselves
+        return Service::where('is_approved', true)
+            ->whereHas('provider', function($query) {
+                $query->where('is_approved', true);
+            })->where('is_available', true)->get();
     }
 
     public function myServices(Request $request)

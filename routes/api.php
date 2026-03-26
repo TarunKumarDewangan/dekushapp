@@ -15,6 +15,7 @@ use App\Http\Controllers\BloodBankController;
 use App\Http\Controllers\RatingController;
 use App\Http\Controllers\GlobalSearchController;
 use App\Http\Controllers\CityAssistantController;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -91,4 +92,15 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Ratings Submission
     Route::post('/ratings', [RatingController::class, 'store']);
+
+    // Admin Routes
+    Route::prefix('admin')->group(function () {
+        Route::get('/stats', [AdminController::class, 'stats']);
+        Route::get('/pending-users', [AdminController::class, 'pendingUsers']);
+        Route::post('/approve-user/{id}', [AdminController::class, 'approveUser']);
+        Route::get('/pending-shops', [AdminController::class, 'pendingShops']);
+        Route::post('/approve-shop/{id}', [AdminController::class, 'approveShop']);
+        Route::get('/pending-services', [AdminController::class, 'pendingServices']);
+        Route::post('/approve-service/{id}', [AdminController::class, 'approveService']);
+    });
 });
