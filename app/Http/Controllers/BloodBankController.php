@@ -14,7 +14,20 @@ class BloodBankController extends Controller
 
     public function myBloodBank(Request $request)
     {
-        return BloodBank::where('user_id', $request->user()->id)->firstOrFail();
+        $bloodBank = BloodBank::where('user_id', $request->user()->id)->first();
+        
+        if (!$bloodBank) {
+            return response()->json([
+                'id' => null,
+                'name' => '',
+                'address' => '',
+                'contact' => '',
+                'blood_groups_available' => '',
+                'user_id' => $request->user()->id
+            ]);
+        }
+        
+        return $bloodBank;
     }
 
     public function update(Request $request, $id)

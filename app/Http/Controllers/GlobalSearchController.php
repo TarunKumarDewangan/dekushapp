@@ -25,12 +25,22 @@ class GlobalSearchController extends Controller
             ->orWhere('address', 'LIKE', "%{$query}%")
             ->get();
 
-        $shops = Shop::where('name', 'LIKE', "%{$query}%")
-            ->orWhere('category', 'LIKE', "%{$query}%")
+        $shops = Shop::where('is_approved', true)
+            ->where(function ($q) use ($query) {
+                $q->where('name', 'LIKE', "%{$query}%")
+                  ->orWhere('category', 'LIKE', "%{$query}%")
+                  ->orWhereHas('products', function ($pq) use ($query) {
+                      $pq->where('name', 'LIKE', "%{$query}%")
+                        ->orWhere('description', 'LIKE', "%{$query}%");
+                  });
+            })
             ->get();
 
-        $services = Service::where('name', 'LIKE', "%{$query}%")
-            ->orWhere('category', 'LIKE', "%{$query}%")
+        $services = Service::where('is_approved', true)
+            ->where(function ($q) use ($query) {
+                $q->where('name', 'LIKE', "%{$query}%")
+                  ->orWhere('category', 'LIKE', "%{$query}%");
+            })
             ->get();
 
         return response()->json([

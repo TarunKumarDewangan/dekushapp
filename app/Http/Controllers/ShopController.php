@@ -9,7 +9,7 @@ class ShopController extends Controller
 {
     public function index(Request $request)
     {
-        return Shop::all();
+        return Shop::where('is_approved', true)->with('products')->get();
     }
 
     public function myShops(Request $request)

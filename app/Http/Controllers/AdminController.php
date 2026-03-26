@@ -7,6 +7,7 @@ use App\Models\Shop;
 use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 use App\Models\BloodBank;
 
 class AdminController extends Controller
@@ -78,25 +79,27 @@ class AdminController extends Controller
             'contact' => 'required'
         ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'role' => 'BloodBank',
-            'is_approved' => true
-        ]);
+        return DB::transaction(function () use ($request) {
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'role' => 'BloodBank',
+                'is_approved' => true
+            ]);
 
-        $bloodBank = BloodBank::create([
-            'name' => $request->bank_name,
-            'address' => $request->address,
-            'contact' => $request->contact,
-            'user_id' => $user->id
-        ]);
+            $bloodBank = BloodBank::create([
+                'name' => $request->bank_name,
+                'address' => $request->address,
+                'contact' => $request->contact,
+                'user_id' => $user->id
+            ]);
 
-        return response()->json([
-            'message' => 'Blood Bank provider created successfully',
-            'user' => $user,
-            'blood_bank' => $bloodBank
-        ]);
+            return response()->json([
+                'message' => 'Blood Bank provider created successfully',
+                'user' => $user,
+                'blood_bank' => $bloodBank
+            ]);
+        });
     }
 }
