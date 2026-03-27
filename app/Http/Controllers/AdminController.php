@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use App\Models\BloodBank;
+use App\Models\Hospital;
 
 class AdminController extends Controller
 {
@@ -99,6 +100,40 @@ class AdminController extends Controller
                 'message' => 'Blood Bank provider created successfully',
                 'user' => $user,
                 'blood_bank' => $bloodBank
+            ]);
+        });
+    }
+
+    public function createHospitalProvider(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:6',
+            'hospital_name' => 'required',
+            'address' => 'required'
+        ]);
+
+        return DB::transaction(function () use ($request) {
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'role' => 'Hospital',
+                'is_approved' => true
+            ]);
+
+            $hospital = Hospital::create([
+                'name' => $request->hospital_name,
+                'address' => $request->address,
+                'user_id' => $user->id,
+                'crowd_status' => 'Low'
+            ]);
+
+            return response()->json([
+                'message' => 'Hospital provider created successfully',
+                'user' => $user,
+                'hospital' => $hospital
             ]);
         });
     }

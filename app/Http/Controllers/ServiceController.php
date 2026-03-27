@@ -9,7 +9,7 @@ class ServiceController extends Controller
 {
     public function index(Request $request)
     {
-        return Service::all();
+        return Service::where('is_approved', true)->get();
     }
 
     public function myServices(Request $request)

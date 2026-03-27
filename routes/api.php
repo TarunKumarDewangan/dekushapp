@@ -16,6 +16,7 @@ use App\Http\Controllers\RatingController;
 use App\Http\Controllers\GlobalSearchController;
 use App\Http\Controllers\CityAssistantController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\DoctorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -106,9 +107,15 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/pending-services', [AdminController::class, 'pendingServices']);
         Route::post('/approve-service/{id}', [AdminController::class, 'approveService']);
         Route::post('/create-blood-bank', [AdminController::class, 'createBloodBankProvider']);
+        Route::post('/create-hospital', [AdminController::class, 'createHospitalProvider']);
     });
 
     // Blood Bank Management for Providers
     Route::get('/my-blood-bank', [BloodBankController::class, 'myBloodBank']);
     Route::put('/blood-banks/{id}', [BloodBankController::class, 'update']);
+
+    // Hospital Management for Staff
+    Route::get('/my-hospital', [HospitalController::class, 'myHospital']);
+    Route::post('/hospital/update-crowd', [HospitalController::class, 'updateCrowd']);
+    Route::apiResource('hospital-doctors', DoctorController::class);
 });
