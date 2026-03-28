@@ -123,7 +123,7 @@ const AdminHomeScreen = ({ navigation }) => {
         color="#0ea5e9"
         theme={theme}
         isDark={isDark}
-        onPress={() => navigation.navigate('AddHospital')}
+        onPress={() => navigation.navigate('AdminHospitalList')}
       />
       <View style={{ height: 40 }} />
     </ScrollView>

@@ -38,6 +38,8 @@ import AddBloodBankScreen from '../screens/AddBloodBankScreen';
 import ManageHospitalScreen from '../screens/ManageHospitalScreen';
 import ManageDoctorsScreen from '../screens/ManageDoctorsScreen';
 import AddEditDoctorScreen from '../screens/AddEditDoctorScreen';
+import AdminHospitalListScreen from '../screens/AdminHospitalListScreen';
+import EditHospitalScreen from '../screens/EditHospitalScreen';
 import AddHospitalScreen from '../screens/AddHospitalScreen';
 
 const Stack = createStackNavigator();
@@ -131,6 +133,8 @@ const AppNavigator = () => {
         <Stack.Screen name="ManageHospital" component={ManageHospitalScreen} options={{ headerShown: true, title: 'Manage Hospital' }} />
         <Stack.Screen name="ManageDoctors" component={ManageDoctorsScreen} options={{ headerShown: true, title: 'Manage Doctors' }} />
         <Stack.Screen name="AddEditDoctor" component={AddEditDoctorScreen} options={{ headerShown: true, title: 'Doctor Details' }} />
+        <Stack.Screen name="AdminHospitalList" component={AdminHospitalListScreen} options={{ headerShown: true, title: 'Manage Hospitals' }} />
+        <Stack.Screen name="EditHospital" component={EditHospitalScreen} options={{ headerShown: true, title: 'Edit Hospital' }} />
         <Stack.Screen name="AddHospital" component={AddHospitalScreen} options={{ headerShown: true, title: 'Add Hospital Specialist' }} />
       </Stack.Navigator>
     </NavigationContainer>

@@ -82,4 +82,10 @@ class HospitalController extends Controller
         $hospital->update($validated);
         return $hospital;
     }
+
+    public function destroy(Hospital $hospital)
+    {
+        $hospital->delete();
+        return response()->json(['message' => 'Hospital deleted successfully']);
+    }
 }
